@@ -9,101 +9,86 @@ import 'gallery.dart';
 import 'about.dart';
 import 'appointment.dart';
 
-
 void main() {
   runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (context)=>ClanderProvider(),)
-  ],child: StartPage()));
+    ChangeNotifierProvider(
+      create: (context) => ClanderProvider(),
+    )
+  ], child: StartPage()));
 }
+
 @override
-
 class StartPage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-
-    return  MaterialApp(
+    return MaterialApp(
       title: "New Task",
       debugShowCheckedModeBanner: false,
 
-
-     // home: HomePage(),
-     home: MyHomePage(),
+      // home: HomePage(),
+      home: MyHomePage(),
       theme: ThemeData(
         brightness: Brightness.dark,
         primaryColor: const Color.fromRGBO(13, 23, 34, 1.0),
         accentColor: const Color.fromRGBO(128, 0, 0, 1.0),
         fontFamily: 'Cairo',
-
-
       ),
-
     );
   }
 }
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
-
 }
 
 class _HomePageState extends State<HomePage>
-
     with SingleTickerProviderStateMixin {
-
 // to navigate from one page to another
 
-
   @override
-
-
   int selectedPage = 0;
-  final _pageOptions = [MainPage(), category(), gallery()  ,appointment(), about()];
-
-
+  final _pageOptions = [
+    MainPage(),
+    category(),
+    gallery(),
+    appointment(),
+    about()
+  ];
 
   @override
-
   Widget build(BuildContext context) {
-
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+          brightness: Brightness.dark,
+          primaryColor: const Color.fromRGBO(13, 23, 34, 1.0),
+          accentColor: const Color.fromRGBO(128, 0, 0, 1.0),
+          fontFamily: 'Cairo'),
+      home: Directionality(
+        // add this
+        textDirection: TextDirection.rtl, // set this property
+        child: new Scaffold(
+            body: _pageOptions[selectedPage],
+            bottomNavigationBar: ConvexAppBar(
+              backgroundColor: const Color.fromRGBO(13, 23, 34, 1.0),
+              height: 58.0,
 
-        debugShowCheckedModeBanner: false,
-
-        theme: ThemeData(
-            brightness: Brightness.dark,
-            primaryColor: const Color.fromRGBO(13, 23, 34, 1.0),
-            accentColor: const Color.fromRGBO(128, 0, 0, 1.0),
-            fontFamily: 'Cairo'
-        ),
-        home: Directionality( // add this
-          textDirection: TextDirection.rtl, // set this property
-          child: new Scaffold(
-
-
-              body:
-              _pageOptions[selectedPage],
-              bottomNavigationBar: ConvexAppBar(
-                backgroundColor: const Color.fromRGBO(13, 23, 34, 1.0),
-                height: 58.0,
-
-                items: [
-                  TabItem(icon: Icons.home, title: 'الرئيسية' ),
-                  TabItem(icon: Icons.category_outlined, title: 'ألاقسام'),
-                  TabItem(icon: Icons.image_outlined, title: 'المعرض'),
-                  TabItem(icon: Icons.send_outlined, title: 'حجز'),
-                  TabItem(icon: Icons.info_outline_rounded, title: 'من نحن'),
-                ],
-                initialActiveIndex: selectedPage,//optional, default as 0
-                onTap: (int index ){
-                  setState(() {
-                    selectedPage = index;
-                  });
-                },
-              )
-          ),
-        ),
-         );
+              items: [
+                TabItem(icon: Icons.home, title: 'الرئيسية'),
+                TabItem(icon: Icons.category_outlined, title: 'ألاقسام'),
+                TabItem(icon: Icons.image_outlined, title: 'المعرض'),
+                TabItem(icon: Icons.send_outlined, title: 'حجز'),
+                TabItem(icon: Icons.info_outline_rounded, title: 'من نحن'),
+              ],
+              initialActiveIndex: selectedPage, //optional, default as 0
+              onTap: (int index) {
+                setState(() {
+                  selectedPage = index;
+                });
+              },
+            )),
+      ),
+    );
   }
-
 }
