@@ -1,0 +1,1 @@
+enum ScreenState {idle,busy}
